@@ -13,7 +13,7 @@ define('NV_IS_MOD_DIRECTION_HOUSE', true);
 function nv_get_directtion($birthday, $gender)
 {
     $array_data = array();
-    
+
     $array_supply_destiny = array(
         0 => array(
             'title' => 'Khảm',
@@ -25,7 +25,7 @@ function nv_get_directtion($birthday, $gender)
         ),
         2 => array(
             'title' => 'Cấn',
-            'direction' => '5,4,3,1,2,7,0'
+            'direction' => '5,4,3,1,2,7,0,6'
         ),
         3 => array(
             'title' => 'Đoài',
@@ -52,7 +52,7 @@ function nv_get_directtion($birthday, $gender)
             'direction' => '1,3,4,5,7,2,6,0'
         )
     );
-    
+
     $array_direction = array(
         0 => 'Đông',
         1 => 'Đông bắc',
@@ -63,7 +63,7 @@ function nv_get_directtion($birthday, $gender)
         6 => 'Nam',
         7 => 'Bắc'
     );
-    
+
     $array_supply_destiny_by_gender = array(
         // cung mệnh nam
         1 => array(
@@ -90,7 +90,7 @@ function nv_get_directtion($birthday, $gender)
             9 => 6
         )
     );
-    
+
     $array_direction = array(
         0 => 'Đông',
         1 => 'Đông bắc',
@@ -101,7 +101,7 @@ function nv_get_directtion($birthday, $gender)
         6 => 'Nam',
         7 => 'Bắc'
     );
-    
+
     $array_direction_house = array(
         0 => array(
             'title' => 'Hướng Sinh khí',
@@ -136,16 +136,16 @@ function nv_get_directtion($birthday, $gender)
             'description' => 'Mưu sự khó thành, dễ hao tài tán lộc, tình duyên trắc trở, dễ đối mặt với những điều không may mắn'
         )
     );
-    
+
     $a = str_split($birthday);
     $a = array_map('intval', $a);
     $a = array_sum($a);
-    if ($check = ($a % 9) != 0) {
-        $result = $check;
+    $a = $a % 9;
+    if ($a != 0) {
+        $result = $a;
     } else {
         $result = 9;
     }
-    
     $b = $array_supply_destiny_by_gender[$gender][$result];
     $b = $array_supply_destiny[$b];
     $b['direction'] = array_map('intval', explode(',', $b['direction']));
