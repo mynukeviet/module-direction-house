@@ -17,10 +17,10 @@ if (!defined('NV_IS_MOD_DIRECTION_HOUSE')) die('Stop!!!');
 function nv_theme_direction_house_main($array_data)
 {
     global $module_file, $lang_module, $module_info, $op;
-    
+
     $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
-    
+
     for ($i = date('Y'); $i >= 1950; $i--) {
         $xtpl->assign('YEAR', array(
             'index' => $i,
@@ -28,7 +28,7 @@ function nv_theme_direction_house_main($array_data)
         ));
         $xtpl->parse('main.year');
     }
-    
+
     $array_gender = array(
         1 => $lang_module['female'],
         0 => $lang_module['male']
@@ -41,7 +41,7 @@ function nv_theme_direction_house_main($array_data)
         ));
         $xtpl->parse('main.gender');
     }
-    
+
     $xtpl->parse('main');
     return $xtpl->text('main');
 }
@@ -54,11 +54,11 @@ function nv_theme_direction_house_main($array_data)
  */
 function nv_theme_direction_house_result($array_result)
 {
-    global $module_file, $lang_module, $module_info, $op;
-    
+    global $module_file, $lang_module, $module_info;
+
     $xtpl = new XTemplate('main.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
-    
+
     if (!empty($array_result)) {
         $i = 1;
         foreach ($array_result as $data) {
@@ -72,7 +72,64 @@ function nv_theme_direction_house_result($array_result)
             $i++;
         }
     }
-    
+
+    $xtpl->parse('result');
+    return $xtpl->text('result');
+}
+
+/**
+ * nv_theme_zodiac_main()
+ *
+ * @param mixed $array_data
+ * @return
+ */
+function nv_theme_zodiac_main($array_data)
+{
+    global $module_file, $lang_module, $module_info, $op;
+
+    $xtpl = new XTemplate('zodiac.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+    $xtpl->assign('LANG', $lang_module);
+
+    for ($i = 1; $i <= 31; $i++) {
+        $xtpl->assign('DAY', array(
+            'index' => $i
+        ));
+        $xtpl->parse('main.day');
+    }
+
+    for ($i = 1; $i <= 12; $i++) {
+        $xtpl->assign('MONTH', array(
+            'index' => $i
+        ));
+        $xtpl->parse('main.month');
+    }
+
+    for ($i = date('Y'); $i >= 1950; $i--) {
+        $xtpl->assign('YEAR', array(
+            'index' => $i,
+            'selected' => $array_data['year'] == $i ? 'selected="selected"' : ''
+        ));
+        $xtpl->parse('main.year');
+    }
+
+    $xtpl->parse('main');
+    return $xtpl->text('main');
+}
+
+/**
+ * nv_theme_zodiac_result()
+ *
+ * @param mixed $array_result
+ * @return
+ */
+function nv_theme_zodiac_result($array_result)
+{
+    global $module_file, $lang_module, $module_info;
+
+    $xtpl = new XTemplate('zodiac.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
+    $xtpl->assign('LANG', $lang_module);
+    $xtpl->assign('DATA', $array_result);
+
     $xtpl->parse('result');
     return $xtpl->text('result');
 }

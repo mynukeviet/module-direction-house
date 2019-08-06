@@ -157,3 +157,115 @@ function nv_get_directtion($birthday, $gender)
     }
     return $array_data;
 }
+
+function nv_check_day($day_from, $day_to, $birthday)
+{
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $birthday, $m)) {
+        $birthday = mktime(23, 59, 59, $m[2], $m[1], 2015);
+    } else {
+        $birthday = 0;
+    }
+
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $day_from, $m)) {
+        $day_from = mktime(0, 0, 0, $m[2], $m[1], $m[3]);
+    } else {
+        $day_from = 0;
+    }
+
+    if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $day_to, $m)) {
+        $day_to = mktime(23, 59, 59, $m[2], $m[1], $m[3]);
+    } else {
+        $day_to = 0;
+    }
+
+    if ($day_from <= $birthday && $day_to >= $birthday) {
+        return true;
+    }
+    return false;
+}
+
+function nv_get_zodiac($birthday)
+{
+    $year = 2015;
+    $array_day = array(
+        array(
+            'title' => 'Bạch Dương – Aries',
+            'description' => 'Bạch Dương Aries – Con Cừu đực (21/3 – 20/4) là cung mệnh đầu tiên của vòng Hoàng Đạo, nó biểu trưng cho sự sống. Con Cừu chỉ nghĩ về mình. Nó là một đứa trẻ, và như mọi con trẻ khác, nó hoàn toàn chìm đắm trong cái tôi của bản thân. Những gì nó quan tâm phải được đặt lên trên hết',
+            'day_from' => '21/3/' . $year,
+            'day_to' => '20/4/' . $year
+        ),
+        array(
+            'title' => 'Kim Ngưu – Taurus',
+            'description' => 'Từ 21/4 đến 21/5, Mặt trời đi ngang qua chòm sao mà các nhà thiên văn cổ xưa liên tưởng thành hình thân trước của con bò, đặt tên là Taurus (bò đực) – Kim Ngưu. Người sinh trong khoảng thời gian này luôn có thể được nhận biết bởi dáng vẻ điềm tĩnh, sự khoan thai trong cử chỉ và lời nói… Đa số Kim Ngưu là những người giàu có. Tính cách ổn định, hơi bảo thủ, người thuộc cung này có thể nói là đáng tin cậy nhất trong cung hoàng đạo',
+            'day_from' => '21/4/' . $year,
+            'day_to' => '21/5/' . $year
+        ),
+        array(
+            'title' => 'Song Tử – Gemini',
+            'description' => 'Người sinh vào thời gian từ 22/5 - 21/6 sẽ thuộc cung Gemini. Hai anh em song sinh Castor và Pollux là con của Zeus, chúa tể của mười hai vị thần trên đỉnh Olympus, và nữ hoàng của thành Sparta.<br />Đó là hai đứa trẻ trung hậu, rất dũng cảm và cùng nhau nổi danh khi lập được nhiều chiến công hiển hách trong cuộc hành trình của nhóm thủy thủ tàu Argo vĩ đại, và trong biết bao cuộc phiêu lưu khác…',
+            'day_from' => '22/5' . $year,
+            'day_to' => '21/6/' . $year
+        ),
+        array(
+            'title' => 'Cự Giải – Cancer',
+            'description' => 'Là biểu tượng của nước, sao chiếu mệnh là Mặt Trăng nên muốn nhận ra Cự Giải, trước hết hãy để ý đến một tuần trăng. Sự thay đổi tâm trạng của những người sinh ra trong khoảng thời gian này dường như liên hệ với mặt trăng bởi một sợi dây thần bí, giống như cách mà vệ tinh này chi phối chu kỳ lên xuống của thuỷ triều.<br />Mặt trăng có lúc trong sáng, nó có thể lấp đầy một đường tròn hoàn hảo trên bầu trời, rồi lại thanh mảnh trở lại trong một hình cung khuyết kiêu kỳ với quầng sáng dịu dàng, mờ ảo, nhưng bản thân nó thì không hề thay đổi.',
+            'day_from' => '22/6' . $year,
+            'day_to' => '23/7/' . $year
+        ),
+        array(
+            'title' => 'Sư Tử – Leo',
+            'description' => 'Bạn có bao giờ gặp những người tiếp nhận sự giúp đỡ và nhiệt tình của kẻ khác với một vẻ độ lượng và phong thái oai nghiêm như thể việc đó là đương nhiên không? Nếu có thì đó chính là Leo đấy. <br />Sư Tử là chúa của muôn loài. Cho nên người cùng tên với nó cũng muốn chiếm vị trí như vậy đối với các cung Hoàng đạo khác…',
+            'day_from' => '24/7' . $year,
+            'day_to' => '23/8/' . $year
+        ),
+        array(
+            'title' => 'Xử Nữ – Virgo',
+            'description' => 'Từ ngày 24/8 - 23/9 Mặt trời đi qua chòm sao Virgo – tiếng Latin nghĩa là Xử Nữ, Trinh Nữ. Hợp với nghĩa đó, đa số người sống độc thân hoặc muộn màng chính là sinh ở cung này. Nhưng một khi đã lập gia đình, Xử Nữ làm tròn bổn phận của mình với lòng tận tuỵ hiếm có…',
+            'day_from' => '24/8' . $year,
+            'day_to' => '23/9/' . $year
+        ),
+        array(
+            'title' => 'Thiên Bình – Libra',
+            'description' => 'Sau khi rời chòm Xử Nữ, từ ngày 24/9 - 23/10 Mặt trời "đi" qua chòm Libra (Thiên Bình) – nghĩa là cái cân. Tuy nhiên, khó có thể nói Thiên Bình là những người thăng bằng. Trước khi đạt được trạng thái thăng bằng, cái cân phải dao động, đung đưa rất lâu bên này bên kia.',
+            'day_from' => '24/9' . $year,
+            'day_to' => '23/10/' . $year
+        ),
+        array(
+            'title' => 'Bọ Cạp – Scorpio',
+            'description' => 'Từ 24/10 - 22/11 Mặt trời đi qua chòm Scorpio – nghĩa là Bò Cạp. Trong các từ điển bách khoa, Bò Cạp được mô tả như sau: loài động vật chân đốt sống về đêm, có khả năng làm tê liệt con mồi bằng chất độc chứa ở chiếc đuôi dài và cong được sử dụng như một phương tiện tấn công cũng như phòng thủ.',
+            'day_from' => '24/10' . $year,
+            'day_to' => '22/11/' . $year
+        ),
+        array(
+            'title' => 'Nhân Mã – Sagittarius',
+            'description' => 'Đơn giản nhất là nhận biết người sinh cung Nhân Mã từ 23/11 - 21/12. Bạn tìm thấy người đó tại chính giữa nhóm ồn ào nhất ở mỗi cuộc vui. Nhân Mã đang kể các câu chuyện hài hước, còn mọi người xung quanh thì phá ra cười.',
+            'day_from' => '23/11' . $year,
+            'day_to' => '21/12/' . $year
+        ),
+        array(
+            'title' => 'Ma kết – Capricornus',
+            'description' => 'Trong truyện ngụ ngôn, con rùa bò chậm chạp nhưng không la cà, bền bỉ tiến tới, vượt qua chú thỏ nhanh nhảu, và đến đích trước. Hình tượng đó là khắc hoạ cơ bản tính cách của người sinh trong giai đoạn từ 22/12 đến 20/1, thuộc cung Ma Kết (Capricornus – Con Dê)…',
+            'day_from' => '22/12' . $year,
+            'day_to' => '20/1/' . ($year + 1)
+        ),
+        array(
+            'title' => 'Bảo Bình – Aquarius',
+            'description' => 'Nếu khắc hoạ tính cách người sinh cung Bảo Bình (21/1 - 19/2) bằng một từ, thì từ đó là "trí tò mò". Người này hứng thú quan tâm tất cả mọi thứ quanh mình, bắt đầu từ bản thân bạn và kết thúc bằng chú cún nhà hàng xóm…',
+            'day_from' => '21/1/' + ($year + 1),
+            'day_to' => '19/2/' + ($year + 1)
+        ),
+        array(
+            'title' => 'Song Ngư – Pisces',
+            'description' => 'Chiêm tinh học xếp Song Ngư (Pisces – Con Cá, 20/2 – 20/3) là cung cuối cùng, thứ 12 của chu kỳ Hoàng đạo. Nếu như Bạch Dương, cung mở đầu, biểu trưng cho sự sống, thì Song Ngư biểu trưng cho cái chết và sự đi vào cõi vĩnh hằng…',
+            'day_from' => '20/2' + ($year + 1),
+            'day_to' => '20/3/' + ($year + 1)
+        )
+    );
+
+    foreach ($array_day as $day) {
+        if (nv_check_day($day['day_from'], $day['day_to'], $birthday)) {
+            return $day;
+        }
+    }
+    return false;
+}
